@@ -26,10 +26,10 @@ This roadmap transforms the existing v7-colorful.html template into a deployed l
   1. Project has proper file structure (index.html, styles, scripts organized)
   2. Local development server runs and serves the page
   3. Template renders correctly in browser
-**Plans**: TBD
+**Plans**: 1 plan
 
 Plans:
-- [ ] 01-01: Project scaffolding and template organization
+- [ ] 01-01-PLAN.md - Reorganize project structure and verify local dev
 
 ### Phase 2: Page Structure
 **Goal**: All 7 page sections exist with placeholder content
@@ -98,7 +98,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation | 0/1 | Not started | - |
+| 1. Foundation | 0/1 | Planned | - |
 | 2. Page Structure | 0/1 | Not started | - |
 | 3. Content | 0/2 | Not started | - |
 | 4. Email Integration | 0/2 | Not started | - |
