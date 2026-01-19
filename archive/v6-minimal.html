@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code for Creatives</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: #fff;
+            color: #111;
+            line-height: 1.6;
+            font-size: 17px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 48px;
+            margin-bottom: 64px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            font-weight: 600;
+            font-size: 15px;
+            color: #111;
+            text-decoration: none;
+        }
+
+        .header-link {
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+        }
+
+        .header-link:hover {
+            color: #111;
+        }
+
+        /* Hero */
+        .hero {
+            margin-bottom: 80px;
+        }
+
+        h1 {
+            font-family: 'IBM Plex Serif', serif;
+            font-size: 42px;
+            font-weight: 400;
+            line-height: 1.25;
+            margin-bottom: 24px;
+        }
+
+        .hero > p {
+            font-size: 19px;
+            color: #555;
+            margin-bottom: 32px;
+            max-width: 580px;
+        }
+
+        .cta-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #111;
+            color: #fff;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+
+        .btn:hover {
+            background: #333;
+        }
+
+        .meta {
+            font-size: 14px;
+            color: #888;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            font-family: 'IBM Plex Serif', serif;
+            font-size: 28px;
+            font-weight: 400;
+            margin-bottom: 32px;
+        }
+
+        /* Tweet */
+        .tweet-section {
+            background: #f8f8f8;
+            margin-left: -24px;
+            margin-right: -24px;
+            padding: 48px 24px;
+            margin-bottom: 80px;
+        }
+
+        .tweet-section .container {
+            padding: 0;
+        }
+
+        .tweet-label {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .tweet-embed {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        /* Build list */
+        .build-list {
+            list-style: none;
+        }
+
+        .build-list li {
+            padding: 28px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .build-list li:first-child {
+            padding-top: 0;
+        }
+
+        .build-list h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .build-list p {
+            color: #666;
+        }
+
+        /* Quote */
+        .quote-section {
+            border-left: 3px solid #111;
+            padding-left: 32px;
+            margin: 80px 0;
+        }
+
+        .quote-section blockquote {
+            font-family: 'IBM Plex Serif', serif;
+            font-size: 26px;
+            font-style: italic;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .quote-section cite {
+            font-style: normal;
+            font-size: 15px;
+            color: #888;
+        }
+
+        .quote-section cite a {
+            color: #888;
+        }
+
+        /* About */
+        .about {
+            display: flex;
+            gap: 24px;
+        }
+
+        .about-img {
+            width: 72px;
+            height: 72px;
+            background: #eee;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .about p {
+            color: #555;
+            margin-bottom: 8px;
+        }
+
+        .about a {
+            color: #111;
+        }
+
+        /* Offer box */
+        .offer {
+            border: 1px solid #111;
+            padding: 48px;
+            margin: 80px 0;
+        }
+
+        .offer h2 {
+            margin-bottom: 8px;
+        }
+
+        .offer .price-row {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .offer .price-row strong {
+            font-size: 32px;
+            color: #111;
+        }
+
+        .offer ul {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .offer li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            gap: 12px;
+        }
+
+        .offer li:before {
+            content: "→";
+            color: #888;
+        }
+
+        /* FAQ */
+        .faq-item {
+            padding: 24px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .faq-item:first-child {
+            border-top: 1px solid #eee;
+        }
+
+        .faq-item h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            color: #666;
+            font-size: 15px;
+        }
+
+        /* Footer */
+        footer {
+            padding-top: 48px;
+            margin-top: 80px;
+            border-top: 1px solid #eee;
+            font-size: 14px;
+            color: #888;
+        }
+
+        footer a {
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">Code for Creatives</a>
+            <a href="#apply" class="header-link">Apply</a>
+        </header>
+
+        <section class="hero">
+            <h1>Learn to build your own tools with AI</h1>
+            <p>A 4-week cohort for writers, designers, and creators. You describe what you want. Claude Code builds it. No coding experience needed.</p>
+            <div class="cta-row">
+                <a href="#apply" class="btn">Apply for Cohort 2</a>
+                <span class="meta">5 spots · $500 · Feb 24</span>
+            </div>
+        </section>
+    </div>
+
+    <div class="tweet-section">
+        <div class="container">
+            <div class="tweet-label">How this started</div>
+            <div class="tweet-embed">
+                [Embed viral tweet here — the one that brought 56 signups in 48 hours]
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <section>
+            <h2>What you'll build</h2>
+            <ul class="build-list">
+                <li>
+                    <h3>A blog that publishes in 3 seconds</h3>
+                    <p>Write in Obsidian or any markdown editor. Hit a keyboard shortcut. It's live on your site. No CMS, no copy-pasting, no friction.</p>
+                </li>
+                <li>
+                    <h3>An AI Chief of Staff</h3>
+                    <p>A single command that reads your projects, your tasks, your values — and tells you what to focus on today. It knows your whole context.</p>
+                </li>
+                <li>
+                    <h3>An invoicing system for client work</h3>
+                    <p>Generate PDFs, track who's paid, send reminders. Built for exactly how you work, not some generic template.</p>
+                </li>
+                <li>
+                    <h3>Email campaigns without the $50/month tool</h3>
+                    <p>Send drip sequences on custom timing. Own your subscriber list. No ConvertKit or Mailchimp required.</p>
+                </li>
+            </ul>
+        </section>
+
+        <section class="quote-section">
+            <blockquote>"Oh my God. This changes everything."</blockquote>
+            <cite>— <a href="https://pmillerd.com">Paul Millerd</a>, author of The Pathless Path</cite>
+        </section>
+
+        <section>
+            <h2>Who's teaching this</h2>
+            <div class="about">
+                <div class="about-img"></div>
+                <div>
+                    <p>I'm <strong>Alex Dobrenko</strong>. I write <a href="https://botharetrue.com">Both Are True</a>, a newsletter about making things and being a person.</p>
+                    <p>I built all these tools for myself first — the blog publisher, the invoicing system, the Chief of Staff. Then people started asking how. So now I teach it.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="offer" id="apply">
+            <h2>Cohort 2</h2>
+            <div class="price-row"><strong>$500</strong> · 5 people · 4 weeks · starts Feb 24</div>
+            <ul>
+                <li>Build your Creative HQ from scratch</li>
+                <li>4 weekly group calls — learn from what everyone builds</li>
+                <li>Lifetime access to the course I'm making from this</li>
+                <li>Direct Slack access to me between calls</li>
+            </ul>
+            <a href="#" class="btn">Apply Now</a>
+        </section>
+
+        <section>
+            <h2>FAQ</h2>
+            <div class="faq-item">
+                <h3>What is Claude Code?</h3>
+                <p>It's an AI from Anthropic that runs in your terminal and can read and write files on your computer. Unlike ChatGPT, it can actually build things — not just talk about them.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Do I need to know how to code?</h3>
+                <p>No. You need to be okay typing commands in a terminal window. But Claude writes all the code. You just describe what you want in plain English.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What if I can't make the live calls?</h3>
+                <p>All calls are recorded. But the live calls are where the best stuff happens — people asking questions, troubleshooting together. Try to make at least 2-3.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is this only for writers?</h3>
+                <p>No. It's for anyone who makes things and wants to own their tools. Writers, designers, podcasters, freelancers, solopreneurs.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>Made by <a href="https://botharetrue.com">Alex Dobrenko</a></p>
+        </footer>
+    </div>
+</body>
+</html>

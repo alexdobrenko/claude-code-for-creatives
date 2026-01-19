@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code for Creatives</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --coral: #FF5F45;
+            --cream: #FAF8F5;
+            --yellow: #FFE566;
+            --mint: #B8E6D4;
+            --lavender: #E8E0F0;
+            --dark: #1a1a1a;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--cream);
+            color: var(--dark);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        /* Nav */
+        nav {
+            padding: 32px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .nav-link {
+            background: var(--dark);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 100px;
+            transition: transform 0.2s;
+        }
+
+        .nav-link:hover {
+            transform: scale(1.05);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 80px 0 120px;
+        }
+
+        .hero h1 {
+            font-size: clamp(56px, 10vw, 120px);
+            font-weight: 700;
+            line-height: 0.95;
+            letter-spacing: -0.03em;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 .coral { color: var(--coral); }
+        .hero h1 .yellow { background: var(--yellow); padding: 0 16px; }
+
+        .hero p {
+            font-size: 22px;
+            max-width: 600px;
+            margin-bottom: 48px;
+            color: #444;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--coral);
+            color: white;
+            padding: 18px 36px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 16px;
+            border-radius: 100px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(255, 95, 69, 0.3);
+        }
+
+        .meta {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Color block sections */
+        .color-block {
+            padding: 80px 0;
+            margin: 0 -48px;
+            padding-left: 48px;
+            padding-right: 48px;
+        }
+
+        .block-yellow { background: var(--yellow); }
+        .block-mint { background: var(--mint); }
+        .block-lavender { background: var(--lavender); }
+        .block-coral { background: var(--coral); color: white; }
+        .block-dark { background: var(--dark); color: white; }
+
+        /* Section headers */
+        .section-tag {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+
+        h2 {
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 48px;
+            line-height: 1.1;
+        }
+
+        /* Build grid */
+        .build-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .build-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            transition: transform 0.2s;
+        }
+
+        .build-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .build-card .number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--coral);
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .build-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .build-card p {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Testimonial */
+        .testimonial-big {
+            padding: 100px 48px;
+            margin: 0 -48px;
+            text-align: center;
+        }
+
+        .testimonial-big blockquote {
+            font-size: clamp(32px, 5vw, 56px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .testimonial-big cite {
+            font-style: normal;
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        .testimonial-big cite a {
+            color: inherit;
+        }
+
+        /* About */
+        .about-section {
+            display: flex;
+            gap: 48px;
+            align-items: center;
+            padding: 80px 0;
+        }
+
+        .about-photo {
+            width: 200px;
+            height: 200px;
+            background: var(--lavender);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .about-text h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            color: #444;
+            margin-bottom: 12px;
+        }
+
+        .about-text a {
+            color: var(--coral);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 100px 48px;
+            margin: 0 -48px;
+        }
+
+        .cta-section h2 {
+            margin-bottom: 16px;
+        }
+
+        .cta-section .price {
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .cta-section .price strong {
+            font-size: 64px;
+            display: block;
+        }
+
+        .cta-section .includes {
+            font-size: 16px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .cta-section .btn-primary {
+            background: white;
+            color: var(--coral);
+        }
+
+        .cta-section .btn-primary:hover {
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        /* FAQ */
+        .faq-section {
+            padding: 80px 0;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px 48px;
+        }
+
+        .faq-item h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            font-size: 16px;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            text-align: center;
+            font-size: 14px;
+            color: #888;
+        }
+
+        footer a { color: #666; }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 24px; }
+            .color-block, .testimonial-big, .cta-section {
+                margin: 0 -24px;
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+            .build-grid, .faq-grid { grid-template-columns: 1fr; }
+            .about-section { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <div class="logo">Code for Creatives</div>
+            <a href="#apply" class="nav-link">Apply Now</a>
+        </nav>
+
+        <section class="hero">
+            <h1>Build your own<br><span class="coral">tools</span> with <span class="yellow">AI</span></h1>
+            <p>A 4-week cohort for writers, designers, and creators. You describe what you want. Claude Code builds it. No coding required.</p>
+            <div class="hero-cta">
+                <a href="#apply" class="btn-primary">Apply for Cohort 2</a>
+                <span class="meta">5 spots · $500 · Starts Feb 24</span>
+            </div>
+        </section>
+    </div>
+
+    <div class="color-block block-yellow">
+        <div class="container">
+            <div class="section-tag">What you'll build</div>
+            <h2>Real tools.<br>Not tutorials.</h2>
+            <div class="build-grid">
+                <div class="build-card">
+                    <div class="number">01</div>
+                    <h3>3-second blog publishing</h3>
+                    <p>Write in Obsidian, hit a shortcut, it's live. No WordPress. No CMS. No friction.</p>
+                </div>
+                <div class="build-card">
+                    <div class="number">02</div>
+                    <h3>AI Chief of Staff</h3>
+                    <p>A command that reads your projects, tasks, and calendar — tells you what matters today.</p>
+                </div>
+                <div class="build-card">
+                    <div class="number">03</div>
+                    <h3>Client invoicing</h3>
+                    <p>Generate PDFs, track who's paid, send reminders. Built exactly how you work.</p>
+                </div>
+                <div class="build-card">
+                    <div class="number">04</div>
+                    <h3>Email without Mailchimp</h3>
+                    <p>Build sequences, own your list, send on your schedule. No $50/month tool.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="testimonial-big block-dark">
+        <blockquote>"Oh my God. This changes everything."</blockquote>
+        <cite>— <a href="https://pmillerd.com">Paul Millerd</a>, author of The Pathless Path</cite>
+    </div>
+
+    <div class="container">
+        <section class="about-section">
+            <div class="about-photo"></div>
+            <div class="about-text">
+                <h3>I'm Alex.</h3>
+                <p>I write <a href="https://botharetrue.com">Both Are True</a>, a newsletter about making things and being a person.</p>
+                <p>I built all of these tools for myself first. The invoicing tool, the blog publisher, the Chief of Staff — all from scratching my own itch. Now I teach other creatives to do the same.</p>
+            </div>
+        </section>
+    </div>
+
+    <div class="cta-section block-coral" id="apply">
+        <h2>Join Cohort 2</h2>
+        <div class="price">
+            <strong>$500</strong>
+            5 spots · 4 weeks · Starts Feb 24
+        </div>
+        <div class="includes">
+            Weekly calls · Slack access · Lifetime course access
+        </div>
+        <a href="#" class="btn-primary">Apply Now</a>
+    </div>
+
+    <div class="container">
+        <section class="faq-section">
+            <h2>Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>What is Claude Code?</h3>
+                    <p>AI that runs in your terminal and can read/write files. ChatGPT can only chat. Claude Code can build.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do I need to know how to code?</h3>
+                    <p>No. You need to be comfortable with a terminal. Claude writes the code.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What if I miss a call?</h3>
+                    <p>All calls recorded. But try to make 2-3 live — that's where the magic is.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is this just for writers?</h3>
+                    <p>Nope. Writers, designers, podcasters, freelancers — anyone who makes things.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>Made by <a href="https://botharetrue.com">Alex Dobrenko</a></p>
+        </footer>
+    </div>
+</body>
+</html>

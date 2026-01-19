@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code for Creatives</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #0f0f1a;
+            --bg-primary: #1a1a2e;
+            --bg-card: #16213e;
+            --bg-elevated: #1e2a4a;
+            --accent: #4ECDC4;
+            --accent-glow: rgba(78, 205, 196, 0.3);
+            --accent-dim: rgba(78, 205, 196, 0.1);
+            --text-primary: #E8E8E8;
+            --text-secondary: #9ca3af;
+            --text-muted: #6b7280;
+            --border: rgba(78, 205, 196, 0.15);
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated gradient background */
+        .bg-gradient {
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(78, 205, 196, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(78, 205, 196, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(30, 42, 74, 0.5) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 540px;
+            padding: 20px;
+        }
+
+        /* Logo */
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .logo h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .logo p {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* Chat window */
+        .chat-window {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow:
+                0 0 60px rgba(78, 205, 196, 0.1),
+                0 25px 50px rgba(0, 0, 0, 0.4);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Chat messages */
+        .chat-messages {
+            padding: 32px 24px;
+            max-height: 450px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .chat-messages::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-messages::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .message {
+            animation: messageIn 0.4s ease-out;
+        }
+
+        @keyframes messageIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-assistant {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .avatar svg {
+            width: 18px;
+            height: 18px;
+            color: var(--accent);
+        }
+
+        .message-content {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            border-top-left-radius: 4px;
+            padding: 16px 20px;
+            font-size: 15px;
+            line-height: 1.6;
+            max-width: 85%;
+        }
+
+        .message-user {
+            align-self: flex-end;
+        }
+
+        .message-user .message-content {
+            background: linear-gradient(135deg, var(--accent), #3db8b0);
+            border: none;
+            color: var(--bg-deep);
+            border-radius: 16px;
+            border-bottom-right-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* Options */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 16px;
+        }
+
+        .option-btn {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 14px 20px;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            background: var(--accent-dim);
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .option-btn.selected {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-deep);
+            font-weight: 500;
+        }
+
+        .multi-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .multi-btn {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 10px 16px;
+            color: var(--text-secondary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .multi-btn:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .multi-btn.selected {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: var(--bg-deep);
+            font-weight: 500;
+        }
+
+        .continue-btn {
+            margin-top: 12px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            padding: 12px 24px;
+            color: var(--accent);
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .continue-btn.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .continue-btn:hover {
+            background: var(--accent);
+            color: var(--bg-deep);
+        }
+
+        /* Input area */
+        .input-area {
+            padding: 20px 24px;
+            border-top: 1px solid var(--border);
+            background: var(--bg-card);
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            flex: 1;
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 14px 18px;
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            font-size: 15px;
+            resize: none;
+            min-height: 48px;
+            max-height: 120px;
+            transition: border-color 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-btn {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        .send-btn svg {
+            width: 20px;
+            height: 20px;
+            color: var(--bg-deep);
+        }
+
+        /* Submit button for vent mode */
+        .submit-btn {
+            margin-top: 12px;
+            width: 100%;
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            border-radius: 10px;
+            padding: 12px;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: none;
+        }
+
+        .submit-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .submit-btn.visible {
+            display: block;
+        }
+
+        /* Typing indicator */
+        .typing {
+            display: flex;
+            gap: 4px;
+            padding: 8px 0;
+        }
+
+        .typing span {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: typingDot 1.4s infinite;
+        }
+
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingDot {
+            0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+            30% { transform: translateY(-6px); opacity: 1; }
+        }
+
+        /* Thank you */
+        .thank-you {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .thank-you h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .thank-you p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        /* Hidden */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background effects -->
+    <div class="bg-gradient"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="logo">
+            <h1>Code for Creatives</h1>
+            <p>You can build stuff</p>
+        </div>
+
+        <div class="chat-window">
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <textarea
+                        class="input-field"
+                        id="inputField"
+                        placeholder="Type your answer..."
+                        rows="1"
+                    ></textarea>
+                    <button class="send-btn" id="sendBtn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
+                        </svg>
+                    </button>
+                </div>
+                <button class="submit-btn" id="submitBtn">Submit as is — I'm ready to talk</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // State
+        const state = {
+            step: 0,
+            path: null,
+            inVentMode: false,
+            data: {
+                name: '',
+                email: '',
+                techLevel: '',
+                helpWith: [],
+                vent: '',
+                followUpResponses: []
+            },
+            conversationHistory: []
+        };
+
+        // Conversation flows
+        const introFlow = [
+            {
+                id: 'welcome',
+                message: `Hey! I'm Alex. I help creatives build things with AI — tools, workflows, whatever makes your work easier.\n\nWhat's your name?`,
+                type: 'text',
+                dataKey: 'name'
+            },
+            {
+                id: 'email',
+                message: (data) => `Nice to meet you, ${data.name}! What's your email?`,
+                type: 'text',
+                dataKey: 'email',
+                inputType: 'email'
+            },
+            {
+                id: 'path-choice',
+                message: () => `How would you like to do this?`,
+                type: 'quick',
+                options: [
+                    { label: 'Answer some questions', value: 'structured' },
+                    { label: 'Let me just tell you what I need', value: 'vent' }
+                ],
+                dataKey: 'path',
+                isPathChoice: true
+            }
+        ];
+
+        const structuredFlow = [
+            {
+                id: 'tech-level',
+                message: (data) => `Alright ${data.name}, how comfortable are you with technical stuff?`,
+                type: 'quick',
+                options: [
+                    { label: "Never opened a terminal", value: 'never' },
+                    { label: "Dabbled in Claude Code / Cursor", value: 'dabbled' },
+                    { label: "Comfortable, want to go deeper", value: 'comfortable' }
+                ],
+                dataKey: 'techLevel'
+            },
+            {
+                id: 'help-with',
+                message: `What are you most interested in?`,
+                type: 'multi',
+                options: [
+                    { label: 'Writing & content', value: 'content' },
+                    { label: 'Business ops', value: 'business' },
+                    { label: 'Building tools', value: 'tools' },
+                    { label: 'Organizing files/ideas', value: 'organizing' },
+                    { label: 'Social media', value: 'social' },
+                    { label: 'Show me what\'s possible', value: 'explore' }
+                ],
+                dataKey: 'helpWith'
+            },
+            {
+                id: 'done',
+                type: 'thankyou'
+            }
+        ];
+
+        const ventFlow = [
+            {
+                id: 'vent-start',
+                message: (data) => `I'm listening, ${data.name}. Tell me what's going on — what are you trying to do? What's frustrating you?`,
+                type: 'vent',
+                dataKey: 'vent'
+            }
+        ];
+
+        let conversation = [...introFlow];
+
+        // DOM
+        const chatMessages = document.getElementById('chatMessages');
+        const inputField = document.getElementById('inputField');
+        const sendBtn = document.getElementById('sendBtn');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Initialize
+        setTimeout(() => showMessage(0), 600);
+
+        function showMessage(index) {
+            if (index >= conversation.length) return;
+
+            const step = conversation[index];
+            state.step = index;
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message message-assistant';
+
+            let messageText = typeof step.message === 'function'
+                ? step.message(state.data)
+                : step.message;
+
+            if (step.type === 'thankyou') {
+                showThankYou();
+                return;
+            }
+
+            messageDiv.innerHTML = `
+                <div class="avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <div class="message-content">
+                    ${messageText.replace(/\n/g, '<br>')}
+                </div>
+            `;
+
+            chatMessages.appendChild(messageDiv);
+
+            // Add options or setup input
+            setTimeout(() => {
+                if (step.type === 'quick') {
+                    showQuickOptions(step, messageDiv);
+                } else if (step.type === 'multi') {
+                    showMultiOptions(step, messageDiv);
+                } else if (step.type === 'text' || step.type === 'vent') {
+                    inputField.placeholder = step.type === 'vent'
+                        ? 'Just let it out...'
+                        : step.inputType === 'email' ? 'your@email.com' : 'Type here...';
+                    inputField.type = step.inputType || 'text';
+                    inputField.focus();
+                    if (step.type === 'vent') {
+                        state.inVentMode = true;
+                        submitBtn.classList.add('visible');
+                    }
+                }
+                scrollToBottom();
+            }, 100);
+        }
+
+        function showQuickOptions(step, container) {
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            step.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt.label;
+                btn.onclick = () => selectOption(step, opt, optionsDiv);
+                optionsDiv.appendChild(btn);
+            });
+
+            container.querySelector('.message-content').appendChild(optionsDiv);
+        }
+
+        function showMultiOptions(step, container) {
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'multi-options';
+
+            step.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'multi-btn';
+                btn.textContent = opt.label;
+                btn.onclick = () => toggleMultiOption(btn, opt);
+                optionsDiv.appendChild(btn);
+            });
+
+            const continueBtn = document.createElement('button');
+            continueBtn.className = 'continue-btn';
+            continueBtn.textContent = 'Continue';
+            continueBtn.onclick = () => submitMultiOptions(step, optionsDiv, continueBtn);
+            optionsDiv.appendChild(continueBtn);
+
+            container.querySelector('.message-content').appendChild(optionsDiv);
+        }
+
+        function selectOption(step, opt, container) {
+            // Disable all buttons
+            container.querySelectorAll('.option-btn').forEach(btn => {
+                btn.style.pointerEvents = 'none';
+                if (btn.textContent === opt.label) {
+                    btn.classList.add('selected');
+                } else {
+                    btn.style.opacity = '0.4';
+                }
+            });
+
+            state.data[step.dataKey] = opt.value;
+            state.conversationHistory.push({ role: 'assistant', content: typeof step.message === 'function' ? step.message(state.data) : step.message });
+            state.conversationHistory.push({ role: 'user', content: opt.label });
+
+            if (step.isPathChoice) {
+                state.path = opt.value;
+                if (opt.value === 'vent') {
+                    conversation = [...conversation, ...ventFlow];
+                } else {
+                    conversation = [...conversation, ...structuredFlow];
+                }
+            }
+
+            setTimeout(() => {
+                showUserMessage(opt.label);
+                setTimeout(() => showTypingThenMessage(state.step + 1), 500);
+            }, 200);
+        }
+
+        function toggleMultiOption(btn, opt) {
+            btn.classList.toggle('selected');
+            const container = btn.parentElement;
+            const continueBtn = container.querySelector('.continue-btn');
+            const hasSelection = container.querySelectorAll('.multi-btn.selected').length > 0;
+            continueBtn.classList.toggle('visible', hasSelection);
+        }
+
+        function submitMultiOptions(step, container, continueBtn) {
+            const selected = [];
+            const labels = [];
+            container.querySelectorAll('.multi-btn.selected').forEach(btn => {
+                const label = btn.textContent;
+                const opt = step.options.find(o => o.label === label);
+                if (opt) {
+                    selected.push(opt.value);
+                    labels.push(label);
+                }
+            });
+
+            state.data[step.dataKey] = selected;
+            state.conversationHistory.push({ role: 'user', content: labels.join(', ') });
+
+            // Disable all buttons
+            container.querySelectorAll('.multi-btn').forEach(btn => {
+                btn.style.pointerEvents = 'none';
+                if (!btn.classList.contains('selected')) btn.style.opacity = '0.4';
+            });
+            continueBtn.style.display = 'none';
+
+            showUserMessage(labels.join(', '));
+            setTimeout(() => showTypingThenMessage(state.step + 1), 500);
+        }
+
+        function showUserMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message message-user';
+            messageDiv.innerHTML = `<div class="message-content">${text}</div>`;
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function showTypingThenMessage(index) {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message message-assistant';
+            typingDiv.innerHTML = `
+                <div class="avatar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                </div>
+                <div class="message-content">
+                    <div class="typing"><span></span><span></span><span></span></div>
+                </div>
+            `;
+            chatMessages.appendChild(typingDiv);
+            scrollToBottom();
+
+            setTimeout(() => {
+                typingDiv.remove();
+                showMessage(index);
+            }, 1000);
+        }
+
+        function showThankYou() {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = `
+                <div class="thank-you">
+                    <h2>Thanks, ${state.data.name}!</h2>
+                    <p>I'll reach out soon to schedule a call.</p>
+                </div>
+            `;
+            chatMessages.appendChild(messageDiv);
+            scrollToBottom();
+
+            // Send notification
+            sendNotification();
+        }
+
+        async function sendNotification() {
+            try {
+                await fetch('/.netlify/functions/intake-notify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ...state.data,
+                        conversationHistory: state.conversationHistory,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+            } catch (err) {
+                console.error('Notification error:', err);
+            }
+        }
+
+        // Handle text input
+        function handleTextSubmit() {
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            const step = conversation[state.step];
+            state.data[step.dataKey] = text;
+            state.conversationHistory.push({ role: 'user', content: text });
+
+            showUserMessage(text);
+            inputField.value = '';
+            inputField.style.height = 'auto';
+
+            if (state.inVentMode) {
+                handleVentResponse(text);
+            } else {
+                setTimeout(() => showTypingThenMessage(state.step + 1), 500);
+            }
+        }
+
+        async function handleVentResponse(text) {
+            // Get follow-up from Claude
+            try {
+                const response = await fetch('/.netlify/functions/intake-followup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: state.data.name,
+                        conversation: state.conversationHistory
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.followUp) {
+                    state.conversationHistory.push({ role: 'assistant', content: data.followUp });
+                    state.data.followUpResponses.push(text);
+
+                    setTimeout(() => {
+                        const typingDiv = document.createElement('div');
+                        typingDiv.className = 'message message-assistant';
+                        typingDiv.innerHTML = `
+                            <div class="avatar">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                    <circle cx="12" cy="7" r="4"/>
+                                </svg>
+                            </div>
+                            <div class="message-content">
+                                <div class="typing"><span></span><span></span><span></span></div>
+                            </div>
+                        `;
+                        chatMessages.appendChild(typingDiv);
+                        scrollToBottom();
+
+                        setTimeout(() => {
+                            typingDiv.remove();
+                            const messageDiv = document.createElement('div');
+                            messageDiv.className = 'message message-assistant';
+                            messageDiv.innerHTML = `
+                                <div class="avatar">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="12" cy="7" r="4"/>
+                                    </svg>
+                                </div>
+                                <div class="message-content">${data.followUp}</div>
+                            `;
+                            chatMessages.appendChild(messageDiv);
+                            inputField.focus();
+                            scrollToBottom();
+                        }, 1000);
+                    }, 500);
+                } else {
+                    showThankYou();
+                }
+            } catch (err) {
+                console.error('Follow-up error:', err);
+                showThankYou();
+            }
+        }
+
+        // Submit button (vent mode)
+        submitBtn.onclick = () => {
+            submitBtn.classList.remove('visible');
+            state.inVentMode = false;
+            showThankYou();
+        };
+
+        // Event listeners
+        sendBtn.onclick = handleTextSubmit;
+        inputField.onkeydown = (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleTextSubmit();
+            }
+        };
+
+        inputField.oninput = () => {
+            inputField.style.height = 'auto';
+            inputField.style.height = inputField.scrollHeight + 'px';
+        };
+
+        function scrollToBottom() {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+</body>
+</html>

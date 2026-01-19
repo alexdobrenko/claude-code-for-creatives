@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code for Creatives</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #FFFFFF;
+            --bg-soft: #F5F5F5;
+            --bg-muted: #EBEBEB;
+            --accent: #FF6B6B;
+            --accent-light: #FFE5E5;
+            --accent-dark: #E85555;
+            --text: #333333;
+            --text-secondary: #666666;
+            --text-muted: #999999;
+            --border: #E5E5E5;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* Split layout */
+        .layout {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            min-height: 100vh;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-soft);
+            padding: 60px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+        }
+
+        .brand h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .brand p {
+            font-size: 16px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .features {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .feature {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-light);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon svg {
+            width: 20px;
+            height: 20px;
+            color: var(--accent);
+        }
+
+        .feature-text h3 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .feature-text p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .sidebar-footer {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Main chat area */
+        .main {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .header {
+            padding: 20px 32px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ADE80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .header span {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Chat messages */
+        .chat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .chat-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chat-area::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .chat-area::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .message {
+            animation: fadeUp 0.4s ease-out;
+            max-width: 600px;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-assistant {
+            display: flex;
+            gap: 16px;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .avatar span {
+            font-size: 18px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .message-body {
+            flex: 1;
+        }
+
+        .message-meta {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .message-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .message-user {
+            margin-left: 60px;
+        }
+
+        .message-user .message-bubble {
+            background: var(--bg-soft);
+            border-radius: 16px;
+            border-bottom-right-radius: 4px;
+            padding: 16px 20px;
+            display: inline-block;
+        }
+
+        /* Options */
+        .options {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .option-btn {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .option-btn.selected {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+
+        .multi-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .multi-btn {
+            background: var(--bg);
+            border: 2px solid var(--border);
+            border-radius: 100px;
+            padding: 12px 20px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .multi-btn:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+
+        .multi-btn.selected {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: white;
+        }
+
+        .continue-btn {
+            margin-top: 16px;
+            background: var(--text);
+            border: none;
+            border-radius: 10px;
+            padding: 14px 28px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            opacity: 0;
+            transform: translateY(8px);
+            pointer-events: none;
+        }
+
+        .continue-btn.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .continue-btn:hover {
+            background: var(--accent);
+        }
+
+        /* Input area */
+        .input-area {
+            padding: 24px 32px;
+            border-top: 1px solid var(--border);
+            background: var(--bg);
+        }
+
+        .input-container {
+            max-width: 600px;
+            margin-left: 60px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 12px;
+            background: var(--bg-soft);
+            border-radius: 16px;
+            padding: 8px;
+            align-items: flex-end;
+        }
+
+        .input-field {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 16px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            color: var(--text);
+            resize: none;
+            min-height: 24px;
+            max-height: 120px;
+        }
+
+        .input-field:focus {
+            outline: none;
+        }
+
+        .input-field::placeholder {
+            color: var(--text-muted);
+        }
+
+        .send-btn {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .send-btn:hover {
+            background: var(--accent-dark);
+            transform: scale(1.05);
+        }
+
+        .send-btn svg {
+            width: 20px;
+            height: 20px;
+            color: white;
+        }
+
+        .submit-btn {
+            margin-top: 12px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 13px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: none;
+        }
+
+        .submit-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .submit-btn.visible {
+            display: inline-block;
+        }
+
+        /* Typing indicator */
+        .typing {
+            display: flex;
+            gap: 5px;
+            padding: 4px 0;
+        }
+
+        .typing span {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite;
+        }
+
+        .typing span:nth-child(2) { animation-delay: 0.15s; }
+        .typing span:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes bounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        /* Thank you */
+        .thank-you {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .thank-you-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow: 0 8px 24px rgba(255, 107, 107, 0.3);
+        }
+
+        .thank-you-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+
+        .thank-you h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .thank-you p {
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div>
+                <div class="brand">
+                    <h1>Code for<br>Creatives</h1>
+                    <p>You can build stuff. I'll show you how.</p>
+                </div>
+
+                <div class="features" style="margin-top: 48px;">
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>Build Real Tools</h3>
+                            <p>Not theory. Actual things you'll use every day.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>No Tech Background Needed</h3>
+                            <p>Writers, designers, creators welcome.</p>
+                        </div>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                            </svg>
+                        </div>
+                        <div class="feature-text">
+                            <h3>1:1 Guidance</h3>
+                            <p>Personal help, not pre-recorded videos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                &copy; 2025 Code for Creatives
+            </div>
+        </aside>
+
+        <!-- Main area -->
+        <main class="main">
+            <header class="header">
+                <div class="header-dot"></div>
+                <span>Alex is online</span>
+            </header>
+
+            <div class="chat-area" id="chatArea"></div>
+
+            <div class="input-area">
+                <div class="input-container">
+                    <div class="input-wrapper">
+                        <textarea
+                            class="input-field"
+                            id="inputField"
+                            placeholder="Type your message..."
+                            rows="1"
+                        ></textarea>
+                        <button class="send-btn" id="sendBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <button class="submit-btn" id="submitBtn">Submit as is — ready to chat</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // State
+        const state = {
+            step: 0,
+            path: null,
+            inVentMode: false,
+            data: {
+                name: '',
+                email: '',
+                techLevel: '',
+                helpWith: [],
+                vent: '',
+                followUpResponses: []
+            },
+            conversationHistory: []
+        };
+
+        // Conversation flows
+        const introFlow = [
+            {
+                id: 'welcome',
+                message: `Hey! I'm Alex. I help creatives build things with AI — tools, workflows, whatever makes your work easier.\n\nWhat's your name?`,
+                type: 'text',
+                dataKey: 'name'
+            },
+            {
+                id: 'email',
+                message: (data) => `Great to meet you, ${data.name}! What's your email so I can follow up?`,
+                type: 'text',
+                dataKey: 'email',
+                inputType: 'email'
+            },
+            {
+                id: 'path-choice',
+                message: () => `How do you want to do this?`,
+                type: 'quick',
+                options: [
+                    { label: 'Answer some questions', value: 'structured' },
+                    { label: 'Just let me explain', value: 'vent' }
+                ],
+                dataKey: 'path',
+                isPathChoice: true
+            }
+        ];
+
+        const structuredFlow = [
+            {
+                id: 'tech-level',
+                message: (data) => `Cool. How comfortable are you with technical stuff, ${data.name}?`,
+                type: 'quick',
+                options: [
+                    { label: "Brand new to this", value: 'never' },
+                    { label: "I've tried some AI tools", value: 'dabbled' },
+                    { label: "Pretty comfortable", value: 'comfortable' }
+                ],
+                dataKey: 'techLevel'
+            },
+            {
+                id: 'help-with',
+                message: `What interests you most? Pick as many as you want.`,
+                type: 'multi',
+                options: [
+                    { label: 'Writing & content', value: 'content' },
+                    { label: 'Business stuff', value: 'business' },
+                    { label: 'Building tools', value: 'tools' },
+                    { label: 'Getting organized', value: 'organizing' },
+                    { label: 'Social media', value: 'social' },
+                    { label: 'Just exploring', value: 'explore' }
+                ],
+                dataKey: 'helpWith'
+            },
+            {
+                id: 'done',
+                type: 'thankyou'
+            }
+        ];
+
+        const ventFlow = [
+            {
+                id: 'vent-start',
+                message: (data) => `I'm all ears, ${data.name}. What's on your mind? What are you trying to figure out?`,
+                type: 'vent',
+                dataKey: 'vent'
+            }
+        ];
+
+        let conversation = [...introFlow];
+
+        // DOM
+        const chatArea = document.getElementById('chatArea');
+        const inputField = document.getElementById('inputField');
+        const sendBtn = document.getElementById('sendBtn');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Initialize
+        setTimeout(() => showMessage(0), 500);
+
+        function showMessage(index) {
+            if (index >= conversation.length) return;
+
+            const step = conversation[index];
+            state.step = index;
+
+            if (step.type === 'thankyou') {
+                showThankYou();
+                return;
+            }
+
+            let messageText = typeof step.message === 'function'
+                ? step.message(state.data)
+                : step.message;
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message message-assistant';
+            messageDiv.innerHTML = `
+                <div class="avatar"><span>A</span></div>
+                <div class="message-body">
+                    <div class="message-meta">Alex</div>
+                    <div class="message-content">${messageText.replace(/\n/g, '<br>')}</div>
+                </div>
+            `;
+
+            chatArea.appendChild(messageDiv);
+
+            setTimeout(() => {
+                if (step.type === 'quick') {
+                    showQuickOptions(step, messageDiv);
+                } else if (step.type === 'multi') {
+                    showMultiOptions(step, messageDiv);
+                } else if (step.type === 'text' || step.type === 'vent') {
+                    inputField.placeholder = step.type === 'vent'
+                        ? 'Tell me everything...'
+                        : step.inputType === 'email' ? 'your@email.com' : 'Type here...';
+                    inputField.type = step.inputType || 'text';
+                    inputField.focus();
+                    if (step.type === 'vent') {
+                        state.inVentMode = true;
+                        submitBtn.classList.add('visible');
+                    }
+                }
+                scrollToBottom();
+            }, 100);
+        }
+
+        function showQuickOptions(step, container) {
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'options';
+
+            step.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.textContent = opt.label;
+                btn.onclick = () => selectOption(step, opt, optionsDiv);
+                optionsDiv.appendChild(btn);
+            });
+
+            container.querySelector('.message-body').appendChild(optionsDiv);
+        }
+
+        function showMultiOptions(step, container) {
+            const optionsDiv = document.createElement('div');
+            optionsDiv.className = 'multi-options';
+
+            step.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'multi-btn';
+                btn.textContent = opt.label;
+                btn.onclick = () => toggleMultiOption(btn);
+                optionsDiv.appendChild(btn);
+            });
+
+            const continueBtn = document.createElement('button');
+            continueBtn.className = 'continue-btn';
+            continueBtn.textContent = 'Continue →';
+            continueBtn.onclick = () => submitMultiOptions(step, optionsDiv, continueBtn);
+
+            const wrapper = document.createElement('div');
+            wrapper.appendChild(optionsDiv);
+            wrapper.appendChild(continueBtn);
+
+            container.querySelector('.message-body').appendChild(wrapper);
+        }
+
+        function selectOption(step, opt, container) {
+            container.querySelectorAll('.option-btn').forEach(btn => {
+                btn.style.pointerEvents = 'none';
+                if (btn.textContent === opt.label) {
+                    btn.classList.add('selected');
+                } else {
+                    btn.style.opacity = '0.4';
+                }
+            });
+
+            state.data[step.dataKey] = opt.value;
+            state.conversationHistory.push({ role: 'assistant', content: typeof step.message === 'function' ? step.message(state.data) : step.message });
+            state.conversationHistory.push({ role: 'user', content: opt.label });
+
+            if (step.isPathChoice) {
+                state.path = opt.value;
+                conversation = opt.value === 'vent'
+                    ? [...conversation, ...ventFlow]
+                    : [...conversation, ...structuredFlow];
+            }
+
+            setTimeout(() => {
+                showUserMessage(opt.label);
+                setTimeout(() => showTypingThenMessage(state.step + 1), 400);
+            }, 200);
+        }
+
+        function toggleMultiOption(btn) {
+            btn.classList.toggle('selected');
+            const wrapper = btn.parentElement.parentElement;
+            const continueBtn = wrapper.querySelector('.continue-btn');
+            const hasSelection = wrapper.querySelectorAll('.multi-btn.selected').length > 0;
+            continueBtn.classList.toggle('visible', hasSelection);
+        }
+
+        function submitMultiOptions(step, container, continueBtn) {
+            const selected = [];
+            const labels = [];
+            container.querySelectorAll('.multi-btn.selected').forEach(btn => {
+                const label = btn.textContent;
+                const opt = step.options.find(o => o.label === label);
+                if (opt) {
+                    selected.push(opt.value);
+                    labels.push(label);
+                }
+            });
+
+            state.data[step.dataKey] = selected;
+            state.conversationHistory.push({ role: 'user', content: labels.join(', ') });
+
+            container.querySelectorAll('.multi-btn').forEach(btn => {
+                btn.style.pointerEvents = 'none';
+                if (!btn.classList.contains('selected')) btn.style.opacity = '0.4';
+            });
+            continueBtn.style.display = 'none';
+
+            showUserMessage(labels.join(', '));
+            setTimeout(() => showTypingThenMessage(state.step + 1), 400);
+        }
+
+        function showUserMessage(text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message message-user';
+            messageDiv.innerHTML = `<div class="message-bubble">${text}</div>`;
+            chatArea.appendChild(messageDiv);
+            scrollToBottom();
+        }
+
+        function showTypingThenMessage(index) {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'message message-assistant';
+            typingDiv.innerHTML = `
+                <div class="avatar"><span>A</span></div>
+                <div class="message-body">
+                    <div class="message-meta">Alex</div>
+                    <div class="typing"><span></span><span></span><span></span></div>
+                </div>
+            `;
+            chatArea.appendChild(typingDiv);
+            scrollToBottom();
+
+            setTimeout(() => {
+                typingDiv.remove();
+                showMessage(index);
+            }, 800);
+        }
+
+        function showThankYou() {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerHTML = `
+                <div class="thank-you">
+                    <div class="thank-you-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 6L9 17l-5-5"/>
+                        </svg>
+                    </div>
+                    <h2>You're all set, ${state.data.name}!</h2>
+                    <p>I'll be in touch soon to schedule our call.</p>
+                </div>
+            `;
+            chatArea.appendChild(messageDiv);
+            scrollToBottom();
+            sendNotification();
+        }
+
+        async function sendNotification() {
+            try {
+                await fetch('/.netlify/functions/intake-notify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        ...state.data,
+                        conversationHistory: state.conversationHistory,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+            } catch (err) {
+                console.error('Notification error:', err);
+            }
+        }
+
+        function handleTextSubmit() {
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            const step = conversation[state.step];
+            state.data[step.dataKey] = text;
+            state.conversationHistory.push({ role: 'user', content: text });
+
+            showUserMessage(text);
+            inputField.value = '';
+            inputField.style.height = 'auto';
+
+            if (state.inVentMode) {
+                handleVentResponse(text);
+            } else {
+                setTimeout(() => showTypingThenMessage(state.step + 1), 400);
+            }
+        }
+
+        async function handleVentResponse(text) {
+            try {
+                const response = await fetch('/.netlify/functions/intake-followup', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: state.data.name,
+                        conversation: state.conversationHistory
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.followUp) {
+                    state.conversationHistory.push({ role: 'assistant', content: data.followUp });
+                    state.data.followUpResponses.push(text);
+
+                    setTimeout(() => {
+                        const typingDiv = document.createElement('div');
+                        typingDiv.className = 'message message-assistant';
+                        typingDiv.innerHTML = `
+                            <div class="avatar"><span>A</span></div>
+                            <div class="message-body">
+                                <div class="message-meta">Alex</div>
+                                <div class="typing"><span></span><span></span><span></span></div>
+                            </div>
+                        `;
+                        chatArea.appendChild(typingDiv);
+                        scrollToBottom();
+
+                        setTimeout(() => {
+                            typingDiv.remove();
+                            const messageDiv = document.createElement('div');
+                            messageDiv.className = 'message message-assistant';
+                            messageDiv.innerHTML = `
+                                <div class="avatar"><span>A</span></div>
+                                <div class="message-body">
+                                    <div class="message-meta">Alex</div>
+                                    <div class="message-content">${data.followUp}</div>
+                                </div>
+                            `;
+                            chatArea.appendChild(messageDiv);
+                            inputField.focus();
+                            scrollToBottom();
+                        }, 800);
+                    }, 400);
+                } else {
+                    showThankYou();
+                }
+            } catch (err) {
+                console.error('Follow-up error:', err);
+                showThankYou();
+            }
+        }
+
+        submitBtn.onclick = () => {
+            submitBtn.classList.remove('visible');
+            state.inVentMode = false;
+            showThankYou();
+        };
+
+        sendBtn.onclick = handleTextSubmit;
+        inputField.onkeydown = (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleTextSubmit();
+            }
+        };
+
+        inputField.oninput = () => {
+            inputField.style.height = 'auto';
+            inputField.style.height = inputField.scrollHeight + 'px';
+        };
+
+        function scrollToBottom() {
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }
+    </script>
+</body>
+</html>

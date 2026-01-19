@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code for Creatives</title>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FAFAF9;
+            color: #1a1a1a;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        /* Header */
+        header {
+            margin-bottom: 80px;
+        }
+
+        .logo {
+            font-family: 'Newsreader', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        /* Hero */
+        .hero {
+            margin-bottom: 80px;
+        }
+
+        h1 {
+            font-family: 'Newsreader', serif;
+            font-size: 48px;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #1a1a1a;
+            color: white;
+            padding: 16px 32px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 15px;
+            border-radius: 6px;
+            transition: background 0.2s;
+        }
+
+        .cta-button:hover {
+            background: #333;
+        }
+
+        .spots {
+            display: inline-block;
+            margin-left: 16px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        /* Tweet embed section */
+        .social-proof {
+            margin-bottom: 80px;
+            padding: 40px;
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+        }
+
+        .social-proof-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #888;
+            margin-bottom: 16px;
+        }
+
+        .tweet-placeholder {
+            background: #f5f5f5;
+            padding: 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #666;
+            font-style: italic;
+        }
+
+        /* What you'll build */
+        .section {
+            margin-bottom: 80px;
+        }
+
+        h2 {
+            font-family: 'Newsreader', serif;
+            font-size: 32px;
+            font-weight: 400;
+            margin-bottom: 32px;
+        }
+
+        .build-list {
+            list-style: none;
+        }
+
+        .build-list li {
+            padding: 24px 0;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            gap: 16px;
+        }
+
+        .build-list li:last-child {
+            border-bottom: none;
+        }
+
+        .build-icon {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 18px;
+        }
+
+        .build-content h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .build-content p {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Testimonial */
+        .testimonial {
+            background: #1a1a1a;
+            color: white;
+            padding: 48px;
+            border-radius: 12px;
+            margin-bottom: 80px;
+        }
+
+        .testimonial blockquote {
+            font-family: 'Newsreader', serif;
+            font-size: 28px;
+            font-style: italic;
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+
+        .testimonial cite {
+            font-style: normal;
+            font-size: 14px;
+            color: #aaa;
+        }
+
+        .testimonial cite a {
+            color: #aaa;
+        }
+
+        /* About */
+        .about {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            margin-bottom: 80px;
+        }
+
+        .about-photo {
+            width: 80px;
+            height: 80px;
+            background: #e5e5e5;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .about-text p {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 12px;
+        }
+
+        .about-text a {
+            color: #1a1a1a;
+            font-weight: 500;
+        }
+
+        /* Offer */
+        .offer {
+            background: white;
+            border: 2px solid #1a1a1a;
+            border-radius: 12px;
+            padding: 48px;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .offer h2 {
+            margin-bottom: 16px;
+        }
+
+        .offer .price {
+            font-size: 48px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .offer .details {
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .offer ul {
+            text-align: left;
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .offer li {
+            padding: 8px 0;
+            padding-left: 28px;
+            position: relative;
+        }
+
+        .offer li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        /* FAQ */
+        .faq h2 {
+            margin-bottom: 32px;
+        }
+
+        .faq-item {
+            padding: 24px 0;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .faq-item h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .faq-item p {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid #e5e5e5;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <a href="#" class="logo">Code for Creatives</a>
+        </header>
+
+        <section class="hero">
+            <h1>Build your own tools.<br>Own your creative infrastructure.</h1>
+            <p>A 4-week cohort for writers, designers, and creators who want to use AI to build real things — not just chat with it.</p>
+            <a href="#apply" class="cta-button">Apply for Cohort 2</a>
+            <span class="spots">5 spots · Starts Feb 24</span>
+        </section>
+
+        <section class="social-proof">
+            <div class="social-proof-label">How this started</div>
+            <div class="tweet-placeholder">
+                [Viral tweet embed goes here — the one that got 56 signups]
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>What you'll build</h2>
+            <ul class="build-list">
+                <li>
+                    <div class="build-icon">📝</div>
+                    <div class="build-content">
+                        <h3>A blog that publishes in 3 seconds</h3>
+                        <p>Write in Obsidian, hit a shortcut, it's live. No CMS, no friction.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="build-icon">🧠</div>
+                    <div class="build-content">
+                        <h3>A Chief of Staff that knows your whole life</h3>
+                        <p>An AI command that reads your projects, tasks, and values — then tells you what to focus on.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="build-icon">💰</div>
+                    <div class="build-content">
+                        <h3>An invoicing tool for client work</h3>
+                        <p>Generate PDFs, track payments, send reminders. Built for how you actually work.</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="build-icon">📧</div>
+                    <div class="build-content">
+                        <h3>Email campaigns without ConvertKit</h3>
+                        <p>Send sequences on custom timing. Own your list. No $50/month subscription.</p>
+                    </div>
+                </li>
+            </ul>
+        </section>
+
+        <section class="testimonial">
+            <blockquote>"Oh my God. This changes everything."</blockquote>
+            <cite>— <a href="https://pmillerd.com" target="_blank">Paul Millerd</a>, author of The Pathless Path, after watching the blog publish in 3 seconds</cite>
+        </section>
+
+        <section class="about">
+            <div class="about-photo"></div>
+            <div class="about-text">
+                <p>I'm Alex. I write <a href="https://botharetrue.com">Both Are True</a> and help creatives figure out what to make.</p>
+                <p>I built all of this for myself first. Now I'm teaching it.</p>
+            </div>
+        </section>
+
+        <section class="offer" id="apply">
+            <h2>Join Cohort 2</h2>
+            <div class="price">$500</div>
+            <div class="details">5 people · 4 weeks · 4 group calls</div>
+            <ul>
+                <li>Build your Creative HQ from scratch</li>
+                <li>Weekly calls — learn from what everyone builds</li>
+                <li>Lifetime access to the course (you're helping me make it)</li>
+                <li>Direct access to me via Slack</li>
+            </ul>
+            <a href="#" class="cta-button">Apply Now</a>
+        </section>
+
+        <section class="faq">
+            <h2>Questions</h2>
+            <div class="faq-item">
+                <h3>What is Claude Code?</h3>
+                <p>It's Anthropic's AI tool that runs in your terminal and can read/write files on your computer. Think ChatGPT, but it can actually build things.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Do I need to know how to code?</h3>
+                <p>No. You need to be comfortable typing commands in a terminal, but Claude writes the code. You just describe what you want.</p>
+            </div>
+            <div class="faq-item">
+                <h3>What if I can't make a live call?</h3>
+                <p>All calls are recorded. But the live interaction is where the magic happens — try to make at least 2-3.</p>
+            </div>
+            <div class="faq-item">
+                <h3>Is this just for writers?</h3>
+                <p>No — it's for anyone who makes things and wants to own their tools. Writers, designers, podcasters, freelancers.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>Made by <a href="https://botharetrue.com">Alex Dobrenko</a></p>
+        </footer>
+    </div>
+</body>
+</html>
