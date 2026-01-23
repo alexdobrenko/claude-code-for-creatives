@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  creative-hq:
+    build: .
+    container_name: creative-hq-test
+    stdin_open: true
+    tty: true
+    volumes:
+      # Mount your Anthropic credentials so Claude Code works
+      - ~/.claude:/root/.claude
+    environment:
+      - TERM=xterm-256color
+    working_dir: /home/creative

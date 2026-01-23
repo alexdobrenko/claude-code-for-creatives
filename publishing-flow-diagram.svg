@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 400">
+  <defs>
+    <style>
+      .box { rx: 12; ry: 12; }
+      .label { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; fill: #333; }
+      .title { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 12px; fill: #666; font-weight: 500; }
+      .arrow { stroke: #999; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .note { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 11px; fill: #888; font-style: italic; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#999"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="900" height="400" fill="#fafafa"/>
+
+  <!-- Step 1: Obsidian -->
+  <rect x="30" y="140" width="140" height="100" fill="#E8D5F2" class="box" stroke="#9B6BB8" stroke-width="2"/>
+  <text x="100" y="175" text-anchor="middle" class="title">OBSIDIAN</text>
+  <text x="100" y="195" text-anchor="middle" class="label">Write in vault/</text>
+  <text x="100" y="215" text-anchor="middle" class="note">just markdown</text>
+
+  <!-- Arrow 1 -->
+  <path d="M 170 190 L 210 190" class="arrow"/>
+
+  <!-- Step 2: Stop Markers -->
+  <rect x="220" y="120" width="140" height="140" fill="#FFF3CD" class="box" stroke="#F0AD4E" stroke-width="2"/>
+  <text x="290" y="155" text-anchor="middle" class="title">STOP MARKERS</text>
+  <text x="290" y="180" text-anchor="middle" class="label">## original</text>
+  <text x="290" y="200" text-anchor="middle" class="label">## draft</text>
+  <text x="290" y="220" text-anchor="middle" class="label">## private</text>
+  <text x="290" y="245" text-anchor="middle" class="note">only publishes above</text>
+
+  <!-- Arrow 2 -->
+  <path d="M 360 190 L 400 190" class="arrow"/>
+
+  <!-- Step 3: sync.sh -->
+  <rect x="410" y="140" width="140" height="100" fill="#D4EDDA" class="box" stroke="#28A745" stroke-width="2"/>
+  <text x="480" y="170" text-anchor="middle" class="title">SYNC.SH</text>
+  <text x="480" y="195" text-anchor="middle" class="label">./sync.sh</text>
+  <text x="480" y="220" text-anchor="middle" class="note">converts + builds</text>
+
+  <!-- Arrow 3 -->
+  <path d="M 550 190 L 590 190" class="arrow"/>
+
+  <!-- Step 4: Hugo -->
+  <rect x="600" y="140" width="120" height="100" fill="#CCE5FF" class="box" stroke="#007BFF" stroke-width="2"/>
+  <text x="660" y="175" text-anchor="middle" class="title">HUGO</text>
+  <text x="660" y="195" text-anchor="middle" class="label">builds site</text>
+  <text x="660" y="215" text-anchor="middle" class="note">public/</text>
+
+  <!-- Arrow 4 -->
+  <path d="M 720 190 L 760 190" class="arrow"/>
+
+  <!-- Step 5: Live -->
+  <rect x="770" y="140" width="110" height="100" fill="#F8D7DA" class="box" stroke="#DC3545" stroke-width="2"/>
+  <text x="825" y="175" text-anchor="middle" class="title">LIVE</text>
+  <text x="825" y="195" text-anchor="middle" class="label">Netlify</text>
+  <text x="825" y="215" text-anchor="middle" class="note">auto-deploys</text>
+
+  <!-- Bottom annotations -->
+  <text x="100" y="280" text-anchor="middle" class="note">write here</text>
+  <text x="290" y="295" text-anchor="middle" class="note">keeps drafts private</text>
+  <text x="480" y="280" text-anchor="middle" class="note">one command</text>
+  <text x="660" y="280" text-anchor="middle" class="note">static site</text>
+  <text x="825" y="280" text-anchor="middle" class="note">git push = live</text>
+
+  <!-- Title -->
+  <text x="450" y="50" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="24" font-weight="bold" fill="#333">The Vomit Pipeline</text>
+  <text x="450" y="75" text-anchor="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="14" fill="#666">Obsidian → Hugo → Live in one command</text>
+
+  <!-- Image handling note -->
+  <rect x="410" y="300" width="140" height="60" fill="#fff" class="box" stroke="#ddd" stroke-width="1"/>
+  <text x="480" y="325" text-anchor="middle" class="title">IMAGES</text>
+  <text x="480" y="345" text-anchor="middle" class="note">auto-copied to /static</text>
+</svg>
