@@ -66,13 +66,13 @@
         .hero h1 {
             font-size: clamp(56px, 10vw, 120px);
             font-weight: 700;
-            line-height: 0.95;
+            line-height: 1.1;
             letter-spacing: -0.03em;
             margin-bottom: 40px;
         }
 
         .hero h1 .coral { color: var(--coral); }
-        .hero h1 .yellow { background: var(--yellow); padding: 0 16px; }
+        .hero h1 .yellow { background: var(--yellow); padding: 0 12px; }
 
         .hero p {
             font-size: 22px;
@@ -185,6 +185,61 @@
             letter-spacing: 0.1em;
             color: var(--coral);
             margin-bottom: 8px;
+        }
+
+        /* Dense grid for "and more" section */
+        .dense-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .dense-card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px 24px;
+            transition: transform 0.2s;
+        }
+
+        .dense-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .dense-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .dense-card p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* Secondary testimonial */
+        .testimonial-secondary {
+            text-align: center;
+            padding: 60px 48px;
+            margin: 0 -48px;
+        }
+
+        .testimonial-secondary blockquote {
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 500;
+            line-height: 1.5;
+            max-width: 700px;
+            margin: 0 auto 16px;
+            font-style: italic;
+        }
+
+        .testimonial-secondary cite {
+            font-style: normal;
+            font-size: 15px;
+            opacity: 0.7;
+        }
+
+        .testimonial-secondary cite a {
+            color: inherit;
         }
 
         /* Testimonial */
@@ -317,6 +372,143 @@
 
         footer a { color: #666; }
 
+        /* Sold out banner */
+        .sold-out-banner {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .sold-out-banner strong {
+            color: var(--yellow);
+        }
+
+        /* Featured builds */
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .featured-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px;
+            transition: transform 0.2s;
+        }
+
+        .featured-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .featured-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .featured-card p {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* What you'll learn list */
+        .learn-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .learn-item {
+            background: white;
+            border-radius: 16px;
+            padding: 28px 32px;
+        }
+
+        .learn-item h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .learn-item p {
+            font-size: 15px;
+            color: #666;
+        }
+
+        /* Coming soon / 1:1 sections */
+        .extras-section {
+            padding: 80px 0;
+        }
+
+        .extras-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+        }
+
+        .extras-card {
+            background: var(--lavender);
+            border-radius: 16px;
+            padding: 40px;
+        }
+
+        .extras-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .extras-card p {
+            font-size: 16px;
+            color: #444;
+        }
+
+        .extras-card .coming-soon {
+            display: inline-block;
+            background: var(--yellow);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 12px;
+        }
+
+        /* Photo grid */
+        .photo-grid-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .photo-grid-section h2 {
+            margin-bottom: 16px;
+        }
+
+        .photo-grid-section .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 40px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .photo-grid img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
         @media (max-width: 768px) {
             .container { padding: 0 24px; }
             .color-block, .testimonial-big, .cta-section {
@@ -324,101 +516,130 @@
                 padding-left: 24px;
                 padding-right: 24px;
             }
-            .build-grid, .faq-grid { grid-template-columns: 1fr; }
+            .build-grid, .faq-grid, .dense-grid, .featured-grid, .learn-list, .extras-grid, .photo-grid { grid-template-columns: 1fr; }
+            .testimonial-secondary, .testimonial-big { padding-left: 24px; padding-right: 24px; }
             .about-section { flex-direction: column; text-align: center; }
         }
     </style>
 </head>
 <body>
+    <div class="sold-out-banner">
+        <strong>Cohort 1 is sold out.</strong> Cohort 2 is now open — 10 spots.
+    </div>
+
     <div class="container">
         <nav>
             <div class="logo">Code for Creatives</div>
-            <a href="#apply" class="nav-link">Apply Now</a>
+            <a href="#apply" class="nav-link">Grab Your Spot</a>
         </nav>
 
         <section class="hero">
-            <h1>Build your own<br><span class="coral">tools</span> with <span class="yellow">AI</span></h1>
-            <p>A 4-week cohort for writers, designers, and creators. You describe what you want. Claude Code builds it. No coding required.</p>
+            <h1>Finally make the<br>things in<br><span class="yellow">your head</span></h1>
+            <p>Without the CS degree. Without the $50/month SaaS. Without the freelance developer. Without learning to code. Without waiting for someone else to build it for you.</p>
             <div class="hero-cta">
-                <a href="#apply" class="btn-primary">Apply for Cohort 2</a>
-                <span class="meta">5 spots · $500 · Starts Feb 24</span>
+                <a href="#apply" class="btn-primary">Grab Your Spot</a>
+                <span class="meta">10 spots · $650</span>
             </div>
         </section>
     </div>
 
-    <div class="color-block block-yellow">
+    <!-- What you'll learn -->
+    <div class="color-block block-mint">
         <div class="container">
-            <div class="section-tag">What you'll build</div>
-            <h2>Real tools.<br>Not tutorials.</h2>
-            <div class="build-grid">
-                <div class="build-card">
-                    <div class="number">01</div>
-                    <h3>3-second blog publishing</h3>
-                    <p>One keyboard shortcut. Obsidian to live in 3 seconds. No CMS, no friction, just words to world.</p>
+            <div class="section-tag">What you'll learn</div>
+            <h2>What you walk away with.</h2>
+            <div class="learn-list">
+                <div class="learn-item">
+                    <h3>Get over the technical barriers</h3>
+                    <p>Terminal, files, folders, paths — we demystify all of it. You'll be comfortable in places that used to feel intimidating.</p>
                 </div>
-                <div class="build-card">
-                    <div class="number">02</div>
-                    <h3>AI Chief of Staff</h3>
-                    <p>A command that reads your projects, tasks, and calendar — tells you what matters today. Stops the "what should I work on?" spiral before it starts.</p>
+                <div class="learn-item">
+                    <h3>A new mindset</h3>
+                    <p>Your computer is a database. Everything is a file. Claude reads and writes to your files. Once this clicks, you see possibilities everywhere.</p>
                 </div>
-                <div class="build-card">
-                    <div class="number">03</div>
-                    <h3>Client invoicing</h3>
-                    <p>Generate PDFs, track payments, send reminders. Built exactly how YOUR business works, not some generic SaaS.</p>
+                <div class="learn-item">
+                    <h3>A toolkit</h3>
+                    <p>Skills, commands, publishing flows, Creative HQ — real infrastructure you built yourself and own forever.</p>
                 </div>
-                <div class="build-card">
-                    <div class="number">04</div>
-                    <h3>Email without Mailchimp</h3>
-                    <p>Build sequences, own your list, send on your schedule. No $50/month tool. No platform lock-in.</p>
-                </div>
-                <div class="build-card">
-                    <div class="number">05</div>
-                    <h3>Photo organizer</h3>
-                    <p>Auto-rename by date, location, or content. Your 47,000 photos finally make sense.</p>
-                </div>
-                <div class="build-card">
-                    <div class="number">06</div>
-                    <h3>Meeting transcripts</h3>
-                    <p>Pull action items from Zoom calls, add them straight to your task list. Never lose a follow-up again.</p>
+                <div class="learn-item">
+                    <h3>The confidence to build whatever you want</h3>
+                    <p>The hardest part is believing you can. By week 5, you won't need to believe it — you'll have proof.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="color-block block-lavender">
+    <!-- What you can build -->
+    <div class="color-block block-yellow">
         <div class="container">
-            <div class="section-tag">What's Possible</div>
-            <h2>People are building<br>wild things</h2>
-            <div class="build-grid">
-                <div class="build-card">
-                    <div class="use-case-tag">AI-Built</div>
-                    <h3>dharm.is</h3>
-                    <p>14M+ Reddit comments analyzed to find actually-recommended products. No affiliate BS. Just what real people genuinely suggest.</p>
+            <div class="section-tag">With this course, you can build things like these (I built all of them)</div>
+            <h2>Real tools.<br>Not tutorials.</h2>
+
+            <!-- Featured 3 -->
+            <div class="featured-grid">
+                <div class="featured-card">
+                    <h3>AI Chief of Staff</h3>
+                    <p>A command that reads your projects, tasks, and call transcripts — tells you what matters today. Stops the "what should I work on?" spiral before it starts.</p>
                 </div>
-                <div class="build-card">
-                    <div class="use-case-tag">AI-Built</div>
-                    <h3>Drift</h3>
-                    <p>Digital message in a bottle. The entire prompt? "Build me an app that would delight me." That's it. That's the whole spec.</p>
+                <div class="featured-card">
+                    <h3>3-second blog publishing</h3>
+                    <p>One keyboard shortcut. Obsidian to live site in 3 seconds. No CMS, no friction, just words to world.</p>
                 </div>
-                <div class="build-card">
-                    <div class="use-case-tag">AI-Built</div>
-                    <h3>Verdant Biodome</h3>
-                    <p>AI-controlled greenhouse that autonomously grows tomatoes. Sensors read the environment, Claude makes decisions, sprinklers activate. You can watch it think in real-time.</p>
-                </div>
-                <div class="build-card">
-                    <div class="use-case-tag">AI-Built</div>
-                    <h3>Simon's 70+ Tools</h3>
-                    <p>Browser tools for OCR, image resizing, social cards, timezone conversion. Each built in an afternoon. Volume over perfection — scratch your own itch, ship, move on.</p>
-                </div>
-                <div class="build-card">
-                    <div class="use-case-tag">AI-Built</div>
-                    <h3>Syntopic Reading</h3>
-                    <p>Discovers thematic connections across 100 books. Your personal literary graph — unexpected links between ideas you'd never find manually.</p>
-                </div>
-                <div class="build-card">
-                    <div class="use-case-tag">AI-Built</div>
+                <div class="featured-card">
                     <h3>Social HQ</h3>
-                    <p>Personal content OS: raw thoughts to scheduled posts across Twitter, LinkedIn, Threads. Learns your voice so it sounds like you, not a robot.</p>
+                    <p>Personal content command center — raw thoughts to scheduled posts across Twitter, LinkedIn, Threads. Learns your voice so it sounds like you.</p>
+                </div>
+            </div>
+
+            <!-- The rest, dense -->
+            <div class="dense-grid">
+                <div class="dense-card">
+                    <h3>Client invoicing</h3>
+                    <p>Generate PDFs, track payments, send reminders. Built for how my business actually works.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>Email without Mailchimp</h3>
+                    <p>Build sequences, own your list, send on your schedule. No $50/month tool.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>Photo renaming for clients</h3>
+                    <p>Batch rename hundreds of photos by date, project, or content. Saved hours of manual work.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>Meeting → action items</h3>
+                    <p>Pull tasks from Zoom calls, add them straight to my task list.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>AI or Not?</h3>
+                    <p>A live web game — guess if images are AI or real. Built in an afternoon.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>Storm Prep</h3>
+                    <p>Emergency checklist that syncs between family members' phones in real time.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>Exam Trainer</h3>
+                    <p>AI study app that focuses on your weak areas. Adapts as you learn.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>Essay → 20 social posts</h3>
+                    <p>Feed it a long piece, get 20 short versions. Learns your voice over time.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>Morning Sweep</h3>
+                    <p>Runs at 6am. Syncs meetings, flags stale drafts, tells me what needs attention.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>LinkedIn dashboard</h3>
+                    <p>Post queue, engagement tracking, DM outreach — a full CMS for a client.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>Custom AI commands</h3>
+                    <p>/negotiate, /life-cfo, /branding-coach — personal tools that know my context.</p>
+                </div>
+                <div class="dense-card">
+                    <h3>Goat color customizer</h3>
+                    <p>A silly SVG toy. Because sometimes you just want to build something fun.</p>
                 </div>
             </div>
         </div>
@@ -429,27 +650,71 @@
         <cite>— <a href="https://pmillerd.com">Paul Millerd</a>, author of The Pathless Path</cite>
     </div>
 
+    <div class="testimonial-secondary block-lavender">
+        <blockquote>"In just a single hour with Alex, he helped me see that <strong>the entry point to using AI is about identifying your own curiosities</strong>, and going from there. Instead of feeling FOMO and following what everyone is doing, Alex will guide you to <strong>use AI in a way that serves your creative interests</strong> and the things you need help with most."</blockquote>
+        <cite>— <a href="https://lawrenceyeo.com">Lawrence Yeo</a>, writer &amp; illustrator</cite>
+    </div>
+
+    <!-- About -->
     <div class="container">
         <section class="about-section">
-            <div class="about-photo"></div>
+            <div class="about-photo"><img src="headshot.jpg" alt="Alex Dobrenko" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
             <div class="about-text">
                 <h3>I'm Alex.</h3>
-                <p>I write <a href="https://botharetrue.com">Both Are True</a>, a newsletter about making things and being a person.</p>
-                <p>I built all of these tools for myself first. The invoicing tool, the blog publisher, the Chief of Staff — all from scratching my own itch. Now I teach other creatives to do the same.</p>
+                <p>I'm a comedian, actor, and writer — not a developer. I was head of creative at Sublime and literally played a soviet hacker in a movie with Zoe Kravitz (the film Kimi). I've been building with Claude Code for about a year, hardcore for the last six months. Everything on this page is something I made for myself.</p>
+                <p>I write <a href="https://botharetrue.com">Both Are True</a>, a best-selling humor newsletter with 18,000 subscribers. I've done one-on-one calls with creatives helping them get set up with this stuff. Now I'm teaching it as a cohort because the energy is better when people build together.</p>
             </div>
         </section>
     </div>
 
+    <!-- CTA -->
     <div class="cta-section block-coral" id="apply">
         <h2>Join Cohort 2</h2>
         <div class="price">
-            <strong>$500</strong>
-            5 spots · 4 weeks · Starts Feb 24
+            <strong>$650</strong>
+            Cohort 1 was $500 and sold out.
         </div>
-        <div class="includes">
-            Weekly calls · Slack access · Lifetime course access
+        <div class="includes" style="text-align: left; max-width: 500px; margin: 0 auto 40px; line-height: 1.8;">
+            10 creatives, 5 weeks, 2 sessions per week<br>
+            Same content both sessions — come to whichever works<br>
+            We build your Creative HQ together<br>
+            Lifetime access to the course I'm building from this<br>
+            Date/time TBD — we'll find times that work for everyone<br>
+            <span style="opacity: 0.8; font-size: 14px;">(Cohort 1 meets Wed 12pm ET + Thu 9am ET)</span>
         </div>
-        <a href="#" class="btn-primary">Apply Now</a>
+        <form name="cohort2" method="POST" data-netlify="true" style="max-width: 500px; margin: 0 auto; text-align: left;">
+            <input type="hidden" name="form-name" value="cohort2">
+            <div style="margin-bottom: 16px;">
+                <label style="font-size: 14px; font-weight: 700; display: block; margin-bottom: 6px;">Name</label>
+                <input type="text" name="name" required style="width: 100%; padding: 14px 16px; border: none; border-radius: 12px; font-size: 16px; font-family: 'Space Grotesk', sans-serif;">
+            </div>
+            <div style="margin-bottom: 16px;">
+                <label style="font-size: 14px; font-weight: 700; display: block; margin-bottom: 6px;">Email</label>
+                <input type="email" name="email" required style="width: 100%; padding: 14px 16px; border: none; border-radius: 12px; font-size: 16px; font-family: 'Space Grotesk', sans-serif;">
+            </div>
+            <div style="margin-bottom: 24px;">
+                <label style="font-size: 14px; font-weight: 700; display: block; margin-bottom: 6px;">Any questions?</label>
+                <textarea name="questions" rows="3" style="width: 100%; padding: 14px 16px; border: none; border-radius: 12px; font-size: 16px; font-family: 'Space Grotesk', sans-serif; resize: vertical;"></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="width: 100%; border: none; cursor: pointer; font-family: 'Space Grotesk', sans-serif; text-align: center;">Grab Your Spot</button>
+        </form>
+    </div>
+
+    <!-- Extras -->
+    <div class="container">
+        <section class="extras-section">
+            <div class="extras-grid">
+                <div class="extras-card">
+                    <h3>1:1 calls with me</h3>
+                    <p>Stuck on something? Want to go deeper? Book time with me directly. This isn't a course where you submit a ticket — you just message me and we get on a call.</p>
+                </div>
+                <div class="extras-card">
+                    <span class="coming-soon">Coming soon</span>
+                    <h3>Products</h3>
+                    <p>Standalone tools I'm building — AI Chief of Staff, Creative HQ starter kit, and more. Cohort members get early access.</p>
+                </div>
+            </div>
+        </section>
     </div>
 
     <div class="container">
@@ -480,10 +745,22 @@
                     <h3>What if the tools change? Won't this become outdated?</h3>
                     <p>The tools will change. That's guaranteed. But the skills transfer: describing what you want clearly, iterating with AI, building systems that solve YOUR problems. Claude Code today, something else tomorrow — the mindset stays.</p>
                 </div>
-                <div class="faq-item">
-                    <h3>What's included in the $500?</h3>
-                    <p>4 weeks of live calls, Slack access, course materials, and lifetime access to recordings. Plus: you walk away with at least one working tool you built yourself.</p>
-                </div>
+            </div>
+        </section>
+
+        <!-- Weird photos section -->
+        <section class="photo-grid-section">
+            <h2>OK that's enough sales page.</h2>
+            <p class="subtitle">I hate when these things go on forever. So instead, here are some cool photos of weird stuff I like.</p>
+            <div class="photo-grid">
+                <img src="photos/original_6d047ff58eabc33c78e5217fc2f8b5c7.jpg" alt="">
+                <img src="photos/original_05412ed66c91eb9f33a969cdac62adbc.jpg" alt="">
+                <img src="photos/original_f4055541a0c0914cac5b41ca64a5eb10.jpg" alt="">
+                <img src="photos/original_252217b89904d05859307b097be31315.jpg" alt="">
+                <img src="photos/original_f29cbae9835d774313c7531c17076046.jpg" alt="">
+                <img src="photos/original_b3b54120f9cde7756ad66d0ee103bdc4.jpg" alt="">
+                <img src="photos/original_91d165fe82275bdf7d3e056850007da7.jpg" alt="">
+                <img src="photos/original_9715d46afc13a4d6e119efe278140e24.jpg" alt="">
             </div>
         </section>
 
